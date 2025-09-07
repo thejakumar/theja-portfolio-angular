@@ -1,0 +1,24 @@
+<section id="home" class="hero">
+  <div class="container">
+    <div class="hero-content">
+      <br><br><br><br><br><br>
+      <h1>Theja Kumar Moolinti</h1>
+      <h2>Full Stack Developer</h2>
+      <p>👋 Hi, I'm Theja — a Full Stack Developer with 5+ years of experience building scalable, high-performance applications. 
+         I'm passionate about creating software that makes life easier, businesses smarter, and technology more impactful.</p>
+      
+      <div class="social-links">
+        <a *ngFor="let link of socialLinks" 
+           [href]="link.href" 
+           [target]="link.target || '_self'"
+           [title]="link.title" 
+           class="social-link">
+          <i [class]="link.icon"></i>
+        </a>
+      </div>
+      
+      <a (click)="onGetInTouchClick()" class="cta-button">Get In Touch</a>
+      <br><br><br>
+    </div>
+  </div>
+</section>

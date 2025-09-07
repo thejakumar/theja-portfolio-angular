@@ -1,0 +1,16 @@
+<section id="experience" class="section">
+  <div class="container">
+    <h2 class="section-title">Professional Experience</h2>
+    <div class="timeline">
+      <div class="timeline-item" *ngFor="let exp of experiences; let i = index">
+        <div class="timeline-content">
+          <h3>{{ exp.position }}</h3>
+          <h4>{{ exp.company }} | {{ exp.period }}</h4>
+          <ul>
+            <li *ngFor="let responsibility of exp.responsibilities">{{ responsibility }}</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
