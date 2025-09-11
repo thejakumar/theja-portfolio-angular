@@ -1,0 +1,66 @@
+<section class="dsa">
+  <header class="hero">
+    <h2>DSA Prep — Practical Patterns</h2>
+    <p>Templates you can reuse in interviews and real projects.</p>
+    <input [(ngModel)]="query" type="text" class="search" placeholder="Search by tag, title, or use-case (e.g., next greater, rate limit)"/>
+  </header>
+
+  <div class="tips">
+    <h3>Tips & Tricks</h3>
+    <ul>
+      <li *ngFor="let t of tipsAndTricks">{{ t }}</li>
+    </ul>
+  </div>
+
+  <div class="cards">
+    <article class="card" *ngFor="let p of filtered()">
+      <div class="card-head">
+        <h4>{{ p.title }}</h4>
+        <div class="tags">
+          <button class="tag" *ngFor="let tag of p.tags" (click)="tagClick(tag)">{{ tag }}</button>
+        </div>
+      </div>
+
+      <div class="when">
+        <h5>When to use</h5>
+        <ul><li *ngFor="let w of p.whenToUse">{{ w }}</li></ul>
+      </div>
+
+      <div class="code-block">
+        <div class="code-title">
+          <span>Template (TS)</span>
+          <button class="copy" #c1 (click)="copy(p.templateTs, c1)">Copy</button>
+        </div>
+        <pre><code>{{ p.templateTs }}</code></pre>
+      </div>
+
+      <div class="code-block">
+        <div class="code-title">
+          <span>Example (TS)</span>
+          <button class="copy" #c2 (click)="copy(p.exampleTs, c2)">Copy</button>
+        </div>
+        <pre><code>{{ p.exampleTs }}</code></pre>
+      </div>
+
+      <div class="rw">
+        <h5>Real-world analogy</h5>
+        <p>{{ p.realWorld }}</p>
+      </div>
+
+      <div class="impact">
+        <h5>Software industry impact</h5>
+        <p>{{ p.impact }}</p>
+      </div>
+
+      <button class="accordion" (click)="toggle(p.id)">
+        {{ activeIds().has(p.id) ? 'Hide notes ▲' : 'Show notes ▼' }}
+      </button>
+      <div class="notes" [class.open]="activeIds().has(p.id)">
+        <p class="note">
+          Interview tip: walk through constraints → pick pattern → outline template aloud →
+          trace on 5 inputs → code → re-check edges (empty, 1-elem, large, negatives).
+        </p>
+      </div>
+    </article>
+  </div>
+</section>

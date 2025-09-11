@@ -1,0 +1,172 @@
+<nav id="navbar" >
+    <div class="container">
+      <div class="nav-container">
+        <div class="logo-2">༺  𝒯𝑀  ༻</div>
+        <ul class="nav-menu">
+          <li><a routerLink="/" class="nav-link">Home</a></li>
+          <li>
+            <div class="theme-toggle" (click)="toggleTheme()">
+              <i class="fas fa-sun"></i>
+              <div class="toggle-switch"></div>
+              <i class="fas fa-moon"></i>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+<section id="learning" class="section">
+  <div class="container">
+    <h2 class="section-title">Learning Materials</h2>
+    <p class="section-subtitle">
+      Explore my collection of tutorials, courses, and educational resources to enhance your development skills.
+    </p>
+
+    <!-- Filters -->
+    <div class="learning-filters">
+      <!-- Search -->
+      <div class="search-container">
+        <i class="fas fa-search search-icon"></i>
+        <input 
+          type="text" 
+          placeholder="Search materials..." 
+          class="search-input"
+          (input)="onSearchChange($event)">
+      </div>
+
+      <!-- Category Filter -->
+      <div class="filter-group">
+        <label class="filter-label">Category:</label>
+        <div class="category-tabs">
+          <button 
+            *ngFor="let category of categories"
+            [class]="'category-tab ' + (selectedCategory === category.name ? 'active' : '')"
+            (click)="filterByCategory(category.name)">
+            <i [class]="category.icon"></i>
+            {{ category.name }}
+            <span class="category-count">{{ category.count }}</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Difficulty Filter -->
+      <div class="filter-group">
+        <label class="filter-label">Difficulty:</label>
+        <select class="difficulty-select" (change)="filterByDifficulty($event)">
+          <option value="All">All Levels</option>
+          <option value="Beginner">Beginner</option>
+          <option value="Intermediate">Intermediate</option>
+          <option value="Advanced">Advanced</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Results Count -->
+    <div class="results-info">
+      <span class="results-count">{{ filteredMaterials.length }} materials found</span>
+    </div>
+
+    <!-- Learning Materials Grid -->
+    <div class="learning-grid">
+      <div 
+        *ngFor="let material of filteredMaterials" 
+        class="learning-card"
+        (click)="openMaterial(material)">
+        
+        <!-- Card Header -->
+        <div class="card-header">
+          <div class="card-thumbnail">
+            <img [src]="material.thumbnail" [alt]="material.title" *ngIf="material.thumbnail">
+            <div class="thumbnail-placeholder" *ngIf="!material.thumbnail">
+              <i [class]="getTypeIcon(material.type)"></i>
+            </div>
+          </div>
+          
+          <!-- Badges -->
+          <div class="card-badges">
+            <span class="badge badge-new" *ngIf="material.isNew">NEW</span>
+            <span class="badge badge-featured" *ngIf="material.isFeatured">FEATURED</span>
+            <span class="badge badge-type">
+              <i [class]="getTypeIcon(material.type)"></i>
+              {{ material.type | titlecase }}
+            </span>
+          </div>
+        </div>
+
+        <!-- Card Content -->
+        <div class="card-content">
+          <h3 class="card-title">{{ material.title }}</h3>
+          <p class="card-description">{{ material.description }}</p>
+          
+          <!-- Meta Information -->
+          <div class="card-meta">
+            <div class="meta-row">
+              <span class="meta-item">
+                <i class="fas fa-folder"></i>
+                {{ material.category }}
+              </span>
+              <span class="meta-item">
+                <i class="fas fa-clock"></i>
+                {{ material.duration }}
+              </span>
+            </div>
+            
+            <div class="meta-row">
+              <span [class]="'difficulty-badge ' + getDifficultyClass(material.difficulty)">
+                {{ material.difficulty }}
+              </span>
+            </div>
+          </div>
+
+          <!-- Tags -->
+          <div class="card-tags">
+            <span class="tag" *ngFor="let tag of material.tags.slice(0, 4)">
+              {{ tag }}
+            </span>
+            <span class="tag tag-more" *ngIf="material.tags.length > 4">
+              +{{ material.tags.length - 4 }}
+            </span>
+          </div>
+        </div>
+
+        <!-- Card Footer -->
+        <div class="card-footer">
+          <div class="rating" *ngIf="material.rating">
+            <div class="stars">
+              <i class="fas fa-star" *ngFor="let star of generateStars(material.rating)"></i>
+              <i class="far fa-star" *ngFor="let star of generateStars(5 - material.rating)"></i>
+            </div>
+            <span class="rating-text">{{ material.rating }}</span>
+          </div>
+          
+          <div class="views" *ngIf="material.views">
+            <i class="fas fa-eye"></i>
+            {{ material.views }}
+          </div>
+
+          <!-- Action Buttons -->
+          <div class="card-actions">
+            <button 
+              *ngIf="material.downloadUrl" 
+              class="action-btn download-btn"
+              (click)="downloadMaterial(material, $event)"
+              title="Download">
+              <i class="fas fa-download"></i>
+            </button>
+            <button class="action-btn view-btn" title="View Material">
+              <i class="fas fa-external-link-alt"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Empty State -->
+    <div class="empty-state" *ngIf="filteredMaterials.length === 0">
+      <i class="fas fa-search empty-icon"></i>
+      <h3>No materials found</h3>
+      <p>Try adjusting your search criteria or explore different categories.</p>
+    </div>
+  </div>
+</section>
+
