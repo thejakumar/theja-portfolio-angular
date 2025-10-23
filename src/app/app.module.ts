@@ -13,6 +13,8 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { LearningMaterialsComponent } from './components/learning-materials/learning-materials.component';
 import { HomeComponent } from './components/home/home.component';
 import { DsaComponent } from './components/dsa/dsa.component';
+import { CommonModule } from '@angular/common';
+import { DotnetAngularInterviewPrepComponent } from './components/dotnet-angular-interview-prep/dotnet-angular-interview-prep.component';
 
 @NgModule({
   declarations: [
@@ -24,14 +26,16 @@ import { DsaComponent } from './components/dsa/dsa.component';
     ContactComponent,
     LearningMaterialsComponent,
     HomeComponent,
-    DsaComponent
+    DsaComponent,
+    DotnetAngularInterviewPrepComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
     FontAwesomeModule,
-    FormsModule
+    FormsModule,
+    CommonModule
   ],
   providers: [],
   bootstrap: [AppComponent]
