@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { ThemeService } from 'src/app/services/theme.service';
 
 
@@ -42,7 +43,7 @@ export class LearningMaterialsComponent {
       duration: '30 Minutes',
       tags: ['.NET Core', 'Angular', 'C#', 'Agile', 'SQL Server', 'Oracle'],
       type: 'course',
-      link: '/theja-portfolio-angular/interview-prep',
+      link: '/interview-prep',
       thumbnail: 'assets/images/learning/dotnet-microservices.jpg',
       isNew: true,
       isFeatured: true,
@@ -128,7 +129,7 @@ export class LearningMaterialsComponent {
   /**
    *
    */
-  constructor(private themeService: ThemeService) {
+  constructor(private themeService: ThemeService, private router: Router) {
     
   }
 
@@ -225,7 +226,7 @@ export class LearningMaterialsComponent {
 
   openMaterial(material: LearningMaterial): void {
     if (material.link) {
-      window.open(material.link, '_blank');
+      this.router.navigate([material.link]);
     }
   }
 
