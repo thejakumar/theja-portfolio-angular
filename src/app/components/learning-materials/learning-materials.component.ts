@@ -40,7 +40,7 @@ export class LearningMaterialsComponent {
       category: '.NET Core',
       difficulty: 'Intermediate',
       duration: '30 Minutes',
-      tags: ['.NET Core', 'Angular', 'C#', 'Agile', 'SQL'],
+      tags: ['.NET Core', 'Angular', 'C#', 'Agile', 'SQL Server', 'Oracle'],
       type: 'course',
       link: '/theja-portfolio-angular/interview-prep',
       thumbnail: 'assets/images/learning/dotnet-microservices.jpg',
